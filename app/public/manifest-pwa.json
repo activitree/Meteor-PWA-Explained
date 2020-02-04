@@ -1,0 +1,32 @@
+{
+  "name": "Demo_PWA_Meteor",
+  "short_name": "Demo_PWA_Meteor",
+  "start_url": "/?homescreen=true",
+  "display": "standalone",
+  "background_color": "#FAFAFA",
+  "theme_color": "#a82d66",
+  "orientation": "portrait",
+  "description": "Description of your app or web app.",
+  "icons": [
+    {
+      "src": "https://assets.activitree.com/images/assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.activitree.com/images/assets/icon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.activitree.com/images/assets/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "https://assets.activitree.com/images/assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
