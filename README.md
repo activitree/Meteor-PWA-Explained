@@ -1,6 +1,14 @@
 # Meteor Demo PWA
 Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
 
+<a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed." /></a>
+
+**This is running in production with https://www.activitree.com**
+
+<img alt="Activitree" src="https://assets.activitree.com/images/ad_banner.jpg" width="100%">
+
+
+
 * This is based on https://github.com/timothyarmes/ta-meteor-apollo-starter-kit 2 and most of the comments in the swSrc.js file belong to the original creator.
 * swSrc.js contains a demo for Push Notifications which has been tested with activitree:push. This part needs adaptation for anyone’s needs/flow.
 * Procedure: you update the swSrc.js file and then run the scrip in the package.json. That script updates the sw.js in the public folder. Do not edit sw.js directly.
