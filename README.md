@@ -1,4 +1,4 @@
-# Meteor_Demo_PWA
+# Meteor Demo PWA
 Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
 
 * This is based on https://github.com/timothyarmes/ta-meteor-apollo-starter-kit 2 and most of the comments in the swSrc.js file belong to the original creator.
