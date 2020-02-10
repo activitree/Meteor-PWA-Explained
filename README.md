@@ -9,7 +9,6 @@ Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
 
 
 
-* This is based on https://github.com/timothyarmes/ta-meteor-apollo-starter-kit 2 and most of the comments in the swSrc.js file belong to the original creator.
 * swSrc.js contains a demo for Push Notifications which has been tested with activitree:push. This part needs adaptation for anyone’s needs/flow.
 * Procedure: you update the swSrc.js file and then run the scrip in the package.json. That script updates the sw.js in the public folder. Do not edit sw.js directly.
 * From the comments in swSrc.js you should understand what are the Meteor particularities. At the existent configuration you will probably want to add the bits for the 200 response (we are planning to do this in this repo soon), probably an extra route with an offline condition (the helper is provided by Workbox).
