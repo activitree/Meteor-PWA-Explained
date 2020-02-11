@@ -1,5 +1,6 @@
 # Meteor Demo PWA
 Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
+
 Uses workbox-cli https://developers.google.com/web/tools/workbox/modules/workbox-cli
 
 <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed." /></a>
