@@ -1,4 +1,4 @@
-# Meteor Demo PWA - udner development until the 20th of Feb 2020
+# Meteor Demo PWA - DO NO USE - under development until the 20th of Feb 2020
 Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
 
 Uses workbox-cli https://developers.google.com/web/tools/workbox/modules/workbox-cli
