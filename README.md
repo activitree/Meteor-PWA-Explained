@@ -1,9 +1,5 @@
-# Meteor Demo PWA - DO NO USE - under development until the 20th of Feb 2020
-Demonstrate the use of PWA with Workbox 5 in a Meteor 1.9+ Project
-
-Uses workbox-cli https://developers.google.com/web/tools/workbox/modules/workbox-cli
-
-Manifest build (and inject) options and documentation: https://developers.google.com/web/tools/workbox/reference-docs/latest/module-workbox-build#.injectManifest
+# Meteor PWA Explained
+Demonstrate the use of PWA and service workers in Meteor 1.8+ Project
 
 <a href="https://www.repostatus.org/#active"><img src="https://www.repostatus.org/badges/latest/active.svg" alt="Project Status: Active – The project has reached a stable, usable state and is being actively developed." /></a>
 
@@ -12,11 +8,13 @@ Manifest build (and inject) options and documentation: https://developers.google
 <img alt="Activitree" src="https://assets.activitree.com/images/ad_banner.jpg" width="100%">
 
 
-* This is not a Meteor demo project. The folder structure represents where each and every file should exist in your project. 
+* **This is not a Meteor project/app.** The folder structure represents where each and every file should exist in your project. 
 
-* swSrc.js contains an example of listeners for Push Notifications which has been tested with activitree:push. This part needs adaptation for anyone’s needs/flow.
+* sw.js contains the necessary service worker installation, activation and newtork strategies for caching and delivery of the Meteor bundle files and other assets. This also handles the offline experience (show an offline HTML page).
 
-* Procedure: update/edit the swSrc.js file and then run the scrip in the package.json. That script updates the sw.js in the public folder. Do not edit sw.js directly.
+* firebase-messaging-sw.js contains the above (sw.js) plus an example of configuration and listeners for Web Push Notifications which has been tested with activitree:push.
+
+You can refer to https://www.activitree.com where these are implemented as presented in this documentation. This will help you understand debugging and what exactly you can expect from your own implementation.
 
 * How it works. There are multiple scenarios (strategies) and similarly you can change to your needs:
     * The PWA manifest is being precached. This means that it will load the first time any page is being rendered. At the time of first load only files in pre-cacheing are being loaded. After the first load, since now we have a manifest and the PWA knows what to do, on consequent loads of pages the Workbox worker will load assets and pages as per the strategies defined.
