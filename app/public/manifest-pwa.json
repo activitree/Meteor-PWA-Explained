@@ -4,8 +4,8 @@
   "start_url": "/?homescreen=1",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#FAFAFA", // your preferred color
-  "theme_color": "#a82d66", // your brand color
+  "background_color": "#FAFAFA",
+  "theme_color": "#a82d66",
   "orientation": "portrait",
   "description": "Description of your app or web app.",
   "icons": [
