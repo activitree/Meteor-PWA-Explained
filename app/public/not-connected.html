@@ -1,0 +1,30 @@
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title>Offline Page</title>
+    </head>
+    <body>
+        <div style="text-align:center; margin-top:200px;">
+            <h1 style='color:#333'>You don't seem to be connected to internet!</h1>
+            <br><br>
+            <button onclick="refresh()"
+                style='
+                    padding: 12px;
+                    background: #333;
+                    border-color: #333;
+                    border-radius: 3px;
+                    color: white;
+                    width: 40%;
+                    height: 90px;
+                    font-size: 32px;
+                    max-width: 292px;'
+                    type='button'>Reload page</button>
+        </div>
+        <script>
+            function refresh() {
+                window.location.reload(true)
+                return false;
+            }
+        </script>
+    </body>
+</html>
