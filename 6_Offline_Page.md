@@ -5,7 +5,7 @@ For a non-SPA website, it would be easy to route to a page and if returned a 404
 
 Perhaps this could make more sense when you look in your Chrome inspector and observe the traffic and responses.
 
-**fragment for the service worker**
+**fragment from the service worker**
 ```javascript
 if (/a.txt/.test(event.request.url)) {
       // console.info('%cROUTING IS INVOLVED', { color: 'red' })
