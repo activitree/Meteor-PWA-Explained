@@ -4,12 +4,8 @@
 
 * You need to register a service worker. This is a good time to read this article: https://dev.to/jankapunkt/transform-any-meteor-app-into-a-pwa-4k44
 
-If **you don't use activitree:push**, you can follow the above mentioned article and use the service worker from this repo.
-If **you use activitree:push**, the client side of the activitree:push package switches automatically between 2 service workers and it is required that you have sw.js and firebase-messaging-sw.js. The logic here is that if you add a Push configuration for Firebase Web Push with your activitree:push package, the firebase-messaging-sw.js will be installed. If a configuration for Web Push is missing, the sw.js file will be installed. The two service workers are similar with the exception that firebase-messaging-sw.js includes the necessary libraries and initialization for Web Push. Please note that activitree:push may work with Cordova or with Web Push or with both, depending on the configurations provided (documented in the package).
 
-Put in a different perspective, if you use activitree:push, just make sure you have your 2 service worker files in your `/public` folder, otherwise, you need to have a service worker of your name of choice and install this service worker in your /client/startup.
-
-
+Move here: https://github.com/activitree/Meteor-PWA-Explained/blob/master/3_Service_workers.md
 
 
 TODO
