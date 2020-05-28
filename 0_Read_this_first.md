@@ -7,7 +7,7 @@
 This documentation is slightly opinionated and it uses Google Firbase for the Web Push technology. Caching strategies are used as example, you can use as is or adapt/improve for your own specific use. The example uses separate cache folders in order to better clarify how different files are moving around.
 
 The documentation suggest the use of activitree:push (https://github.com/activitree/meteor-push or https://atmospherejs.com/activitree/push ) but you can use any Push infrastructure and implement the specific bits in your web service worker. The activitree:push package implements Push notifications for Cordova and Web over the Google Firebase (FCM) public infrastructure. If you are new to Push, you need to first know that Push is not a "Meteor thing", the Meteor implementation of Push does mainly three things:
-  * Meteor server authenticates in the public Googel Firebase infrastructure in order to send notifications to device tokens
+  * Meteor server authenticates in the public Google Firebase infrastructure in order to send notifications to device tokens
   * Meteor server saves to its own MongoDB device tokens and associates them with user Ids.
   * Meteor client get the device token from the user (Cordova or Web) and pass it to the Meteor server.
   
