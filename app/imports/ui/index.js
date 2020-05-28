@@ -1,5 +1,7 @@
 import { Meteor } from 'meteor/meteor'
 
+// register a service worker when you don't use activitree:push
+
 async function main () {
 
   // Your usual Meteor Index files
