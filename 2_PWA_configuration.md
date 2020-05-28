@@ -1,6 +1,7 @@
 Installing and uninstalling PWA with a Chrome browser: https://www.guidingtech.com/install-uninstall-pwas-chrome/
 
 Android offers to save a PWA on the local device if this feature is detected in a website.
+
 IOS requires a manual strategy, the developer needs to offer this in the UI. Read this about state of PWA on IOS: https://love2dev.com/pwa/ios/
 
 
