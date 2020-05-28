@@ -6,10 +6,6 @@
   "type": "commonjs",
   "scripts": {
     "start": "meteor run --settings settings.json",
-    "standard": "standard",
-    "test": "eslint .",
-    "update-sw": "workbox injectManifest workbox-config.js", // this line is relevant for PWA
-    "lint": "eslint .",
-    "pretest": "npm run lint --silent"
+    "standard": "standard"
   }
 }
