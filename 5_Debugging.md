@@ -11,5 +11,6 @@ Down below in the Console section, have those checkmarks in order to observe wha
 <img alt="Chrome Inspector" src="https://assets.activitree.com/images/demo/inspector.png" width="100%">
 
 
+Check the `Size` column. `(Service Worker)` means the file is coming from the local cache and not from the network. Please Disable cache (at the top of the inspector) in order to prevent the browser cache and observe the service worker cache.
 
 <img alt="Chrome Inspector" src="https://assets.activitree.com/images/demo/network.png" width="100%">
