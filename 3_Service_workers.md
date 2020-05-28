@@ -85,8 +85,10 @@ const filesToCacheOnInstall = [
   MANIFEST,
   '/?homescreen=1'
 ]
-const assetsRegex = /isometric|activitree\.com\/activities/
+const assetsRegex = /isometric|activitree\.com\/activities/ // just place your onw regex here.
 
+
+// function declaration, will use it further down.
 const returnOffline = () => {
   return caches.open(PRECACHE_CACHE)
     .then(cache => {
@@ -97,38 +99,12 @@ const returnOffline = () => {
     })
 }
 
-/**
- * Web Workers Specific Listener: install
- */
-self.addEventListener('install', e => {
-  self.skipWaiting()
-  e.waitUntil(
-    caches.open(PRECACHE_CACHE)
-      .then(cache => cache.addAll(filesToCacheOnInstall))
-  )
-})
-
-/**
- * Web Workers Specific Listener: activate
- */
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(cacheNames =>
-      cacheNames.map(cacheName => {
-        if ((cacheName.indexOf('bundleCache') !== -1 && cacheName !== BUNDLE_CACHE) ||
-          (cacheName.indexOf('preCache') !== -1 && cacheName !== PRECACHE_CACHE) ||
-          (cacheName.indexOf('assetsCache') !== -1 && cacheName !== ASSETS_CACHE)) {
-          return caches.delete(cacheName)
-        }
-      }))
-  )
-})
-
+// function declaration, will use it further down.
 const cacheFirstStrategyCaching = (isBundleFile, event) => {
   event.respondWith((async () => {
     try {
       const requestToFetch = event.request.clone()
-      return caches.open(isBundleFile ? BUNDLE_CACHE : ASSETS_CACHE)
+      return caches.open(isBundleFile ? BUNDLE_CACHE : ASSETS_CACHE) // switch the cache folder
         .then(cache => {
           return cache
             .match(event.request.url)
@@ -137,11 +113,12 @@ const cacheFirstStrategyCaching = (isBundleFile, event) => {
                 if (debug) { console.info('I am returning the cached file: ', cached) }
                 return cached
               }
-              return fetch(requestToFetch, isBundleFile ? {} : { mode: 'cors' }) // fetch(requestToFetch), without options, if you don't use external CDNs
+              // if not in cache, fetch it
+              return fetch(requestToFetch, isBundleFile ? {} : { mode: 'cors' }) // fetch(requestToFetch), without options, if you don't use external CDNs at a different origin than your own webapp.
                 .then(response => {
                   if (debug) { console.log('What do I have in this response? ', response.clone()) }
                   const clonedResponse = response.clone()
-                  if (response.clone().status === 200) { // Only delete the old and cache the new one if we avail of the file.(other possibilities are to get a 404 and we don't want to cache that.)
+                  if (response.clone().status === 200) { // Only delete the old and cache the new one if we avail of the new file.(other possibilities are to get a 404 and we don't want to cache that.)
                     if (debug) { console.log('I do have a status response 200 here') }
                     return caches.open(isBundleFile ? BUNDLE_CACHE : ASSETS_CACHE)
                       .then(cache => cache.keys()
@@ -175,6 +152,34 @@ const cacheFirstStrategyCaching = (isBundleFile, event) => {
     }
   })())
 }
+
+
+/**
+ * Web Workers Specific Listener: install
+ */
+self.addEventListener('install', e => {
+  self.skipWaiting()
+  e.waitUntil(
+    caches.open(PRECACHE_CACHE)
+      .then(cache => cache.addAll(filesToCacheOnInstall))
+  )
+})
+
+/**
+ * Web Workers Specific Listener: activate
+ */
+self.addEventListener('activate', e => {
+  e.waitUntil(
+    caches.keys().then(cacheNames =>
+      cacheNames.map(cacheName => {
+        if ((cacheName.indexOf('bundleCache') !== -1 && cacheName !== BUNDLE_CACHE) ||
+          (cacheName.indexOf('preCache') !== -1 && cacheName !== PRECACHE_CACHE) ||
+          (cacheName.indexOf('assetsCache') !== -1 && cacheName !== ASSETS_CACHE)) {
+          return caches.delete(cacheName)
+        }
+      }))
+  )
+})
 
 /**
  * Web Worker Specific Listener: fetch
@@ -278,9 +283,3 @@ self.addEventListener('notificationclick', event => {
 })
 
 ```
-
-
-
-
-
-
