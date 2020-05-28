@@ -238,7 +238,10 @@ self.addEventListener('fetch', event => {
     // route to where I need. This was implemented with React Router. If I don't ignore robots, sitemap etc the browser will
     // route to these locations instead of returning the files (those Routes do not exist e.g. www.website.com/robots.txt
     // but there is a public file there which is what I want.)
-    if (event.request.mode === 'navigate' && !/robots|sitemap|\?homescreen|manifest-pwa|a.txt/.test(event.request.url)) {
+    if (event.request.mode === 'navigate' &&
+      !/robots|sitemap|\?homescreen|manifest-pwa|a.txt/.test(event.request.url &&
+      !assetsRegex.test(event.request.url // this is already being handled in a fetch above
+    ) {
       const requestToFetch = event.request.clone()
       event.respondWith(
         fetch(requestToFetch)
