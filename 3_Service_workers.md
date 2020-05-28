@@ -34,7 +34,7 @@ if (Meteor.isProduction) {
 }
 ```
 
-This is the service worker proposed by this documentation, exaplained in-line. This is not the best nor the worst, it is something that works for us and covers a more general case. This should/could improve with your help.
+This further is the service worker proposed by this documentation, exaplained in-line. This is not the best nor the worst, it is something that works for us and covers a more general case. This should/could improve with your help.
 
 Before this please note the existence of `not-connected.html` file in your `/public` folder https://github.com/activitree/Meteor-PWA-Explained/blob/master/app/public/not-connected.html. We use this file to display a page when we sense something is wrong with our connection to the Meteor server.
 
