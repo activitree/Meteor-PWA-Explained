@@ -113,12 +113,13 @@ const cacheFirstStrategyCaching = (isBundleFile, event) => {
                 if (debug) { console.info('I am returning the cached file: ', cached) }
                 return cached
               }
-              // if not in cache, fetch it
-              return fetch(requestToFetch, isBundleFile ? {} : { mode: 'cors' }) // fetch(requestToFetch), without options, if you don't use external CDNs at a different origin than your own webapp.
+              // if use bundle provided by Meteor server: `isBundleFile ? {} : { mode: 'cors' }`
+              // if use bundle from CDN get it with mode cors: `{ mode: 'cors' }`
+              return fetch(requestToFetch, { mode: 'cors' }) // fetch(requestToFetch), without options, if you don't use external CDNs
                 .then(response => {
                   if (debug) { console.log('What do I have in this response? ', response.clone()) }
                   const clonedResponse = response.clone()
-                  if (response.clone().status === 200) { // Only delete the old and cache the new one if we avail of the new file.(other possibilities are to get a 404 and we don't want to cache that.)
+                  if (response.clone().status === 200 || response.clone().status === 304) { // Only delete the old and cache the new one if we avail of the file.(other possibilities are to get a 404 and we don't want to cache that.)
                     if (debug) { console.log('I do have a status response 200 here') }
                     return caches.open(isBundleFile ? BUNDLE_CACHE : ASSETS_CACHE)
                       .then(cache => cache.keys()
@@ -186,7 +187,21 @@ self.addEventListener('activate', e => {
  */
 self.addEventListener('fetch', event => {
   self.clients.claim()
-  // Bundle files JS and CSS management. If new names are detected while calling the bundle files from the cache, the olds files are deleted and the new ones cached.
+  
+  // Early check with a network only strategy for the availability of a file that when missed triggers the display of an offline page.
+  if (/a.txt/.test(event.request.url)) {
+    // console.info('%cROUTING IS INVOLVED', { color: 'red' })
+    event.respondWith(
+     fetch(event.request.clone())
+      // .then(response => response)
+      .catch(error => {
+         console.log('Failed to route, probably disconnected: ', error)
+          return returnOffline()
+       })
+    )
+  }
+
+  // Bundle files JS and CSS management. If new names are detected while calling the bundle files from the cache, the old files are deleted and the new ones cached.
   if (isBundleFile(event.request.url)) {
     if (debug) { console.log('My event request url for bundle file: ', event.request.url) }
     cacheFirstStrategyCaching(true, event)
@@ -216,21 +231,12 @@ self.addEventListener('fetch', event => {
       }())
     }
 
-    if (/a.txt/.test(event.request.url)) {
-      // console.info('%cROUTING IS INVOLVED', { color: 'red' })
-      event.respondWith(
-        fetch(event.request.clone())
-          // .then(response => response)
-          .catch(error => {
-            console.log('Failed to route, probably disconnected: ', error)
-            return returnOffline()
-          })
-      )
-    }
-
    // Cache first strategy for my assets files / other files.
-    if (assetsRegex.test(event.request.url)) {
+    
+    const isAsset = assetsRegex.test(event.request.url)
+    if (isAsset) {
       cacheFirstStrategyCaching(false, event)
+      return false // when I hit an asset just make sure I don't bother with the rest of this sw 
     }
 
     // Next is a NetworkFirst (or Network Only) strategy and is intended to let every traffic pass through unless handled by the above IF's
@@ -238,10 +244,7 @@ self.addEventListener('fetch', event => {
     // route to where I need. This was implemented with React Router. If I don't ignore robots, sitemap etc the browser will
     // route to these locations instead of returning the files (those Routes do not exist e.g. www.website.com/robots.txt
     // but there is a public file there which is what I want.)
-    if (event.request.mode === 'navigate' &&
-      !/robots|sitemap|\?homescreen|manifest-pwa|a.txt/.test(event.request.url &&
-      !assetsRegex.test(event.request.url // this is already being handled in a fetch above
-    ) {
+    if (event.request.mode === 'navigate' && !/robots|sitemap|\?homescreen|manifest-pwa|a.txt/.test(event.request.url) && !isAsset) {
       const requestToFetch = event.request.clone()
       event.respondWith(
         fetch(requestToFetch)
@@ -270,14 +273,15 @@ self.addEventListener('fetch', event => {
 // all the above plus the following
 
 // import firebase scripts inside service worker js script
-importScripts('https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js')
-importScripts('https://www.gstatic.com/firebasejs/7.14.5/firebase-messaging.js')
+importScripts('https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/7.15.0/firebase-messaging.js')
 
 // the following credentials are from your Google Firebase project for your app. They are public data and you can just make sure to restrict the use of the apiKey by your own domain only.
 
-firebase.initializeApp({ projectId: 'xxxxxx', apiKey: 'xxxxxx', appId: 'xxxxxx', messagingSenderId: 'xxxxxx' })
-const messaging = firebase.messaging()
-
+if (firebase && firebase.messaging && firebase.messaging.isSupported()) {
+  firebase.initializeApp({ projectId: 'xxxxxx', apiKey: 'xxxxxx', appId: 'xxxxxx', messagingSenderId: 'xxxxxx' })
+  const messaging = firebase.messaging()
+}
 self.addEventListener('notificationclick', event => {
   if (event.action) {
     clients.openWindow(event.action)
