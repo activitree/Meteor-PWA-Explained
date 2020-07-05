@@ -23,3 +23,6 @@ You can refer to https://www.activitree.com where these are implemented as prese
     * You can add as many strategies you want. For example, images that you know will not change for a long time can be cached with a "Cache First" strategy (as if they were served from the usual browser cache).
     * When set properly, not only you get a nice user experience with screens loading instantly but you save on your tech cost by have a lot of assets, bundles, pages already distributed (cached at users' ends).
     * This documentation works best after you read and understand PWA and service workers (search on the internet)
+    
+    
+Working with the Cache API: https://web.dev/cache-api-quick-guide/
